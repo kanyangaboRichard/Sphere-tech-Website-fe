@@ -32,7 +32,7 @@ export type Article = {
 
 // Inside Docker: http://backend:5000  ·  Local dev: http://127.0.0.1:5000
 const API_URL = (process.env.API_URL || "http://127.0.0.1:5000").replace(/\/$/, "");
-const PUBLIC_PATH = process.env.PUBLIC_ARTICLES_PATH || "/public/articles";
+const PUBLIC_PATH = process.env.PUBLIC_ARTICLES_PATH || "/api/public/articles";
 
 // The backend may wrap results as { data: [...] }, { data: { articles: [...] } } or a bare array.
 function unwrapList(json: any): Article[] {

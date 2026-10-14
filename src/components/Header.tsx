@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getArticles } from "@/lib/api";
 import Bolt from "./Bolt";
 
-const SECTIONS = ["Latest", "AI", "Cybersecurity", "Startups", "Gadgets", "Business", "Video", "Opinion"];
+const SECTIONS = ["Latest", "AI", "Cybersecurity", "Startups", "Gadgets", "Business", "Videos", "Opinion","Shop with us"];
 
 // Server component: pulls the newest breaking story (or the newest story) for the ticker.
 export default async function Header({ query = "" }: { query?: string }) {
