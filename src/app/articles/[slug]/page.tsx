@@ -48,7 +48,9 @@ export default async function ArticlePage({ params }: Props) {
             {article.pullQuote}
           </blockquote>
         )}
-        {article.body && <div className="article-body">{article.body}</div>}
+      {article.body && (
+          <div className="article-body" dangerouslySetInnerHTML={{ __html: article.body }} />
+          )}
 
         {gallery.length > 0 && (
           <div className="gallery">

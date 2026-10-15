@@ -25,7 +25,9 @@ function highlight(text: string, q: string) {
 export default async function SearchPage({ searchParams }: Props) {
   const { q: raw = "" } = await searchParams;
   const q = raw.trim();
-  const results = q ? (await getArticles({ search: q })).filter(a => matches(a, q)) : [];
+
+ 
+  const results = q ? (await getArticles({ limit: 500 })).filter(a => matches(a, q)) : [];
 
   return (
     <>

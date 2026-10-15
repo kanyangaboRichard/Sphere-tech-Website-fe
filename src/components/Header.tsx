@@ -1,13 +1,22 @@
 import Link from "next/link";
-import { getArticles } from "@/lib/api";
+import { getArticles, categoryName } from "@/lib/api";
 import Bolt from "./Bolt";
 
-const SECTIONS = ["Latest", "AI", "Cybersecurity", "Startups", "Gadgets", "Business", "Videos", "Opinion","Shop with us"];
+const FIXED_ITEMS = ["Latest"];
+const TRAILING_ITEMS = ["Shop with us"];
 
-// Server component: pulls the newest breaking story (or the newest story) for the ticker.
 export default async function Header({ query = "" }: { query?: string }) {
   const articles = await getArticles();
   const ticker = articles.find(a => a.isBreaking) ?? articles[0];
+
+  const categories = Array.from(
+    new Set(articles.map(categoryName).filter((c): c is string => Boolean(c)))
+  ).sort();
+
+  const sections = [...FIXED_ITEMS, ...categories, ...TRAILING_ITEMS];
+
+  const hrefFor = (s: string) =>
+    s === "Latest" ? "/#latest" : s === "Shop with us" ? "/shop" : `/search?q=${encodeURIComponent(s)}`;
 
   return (
     <header className="masthead">
@@ -34,8 +43,8 @@ export default async function Header({ query = "" }: { query?: string }) {
         </div>
 
         <nav className="sections" aria-label="Sections">
-          {SECTIONS.map(s => (
-            <Link key={s} href={s === "Latest" ? "/#latest" : `/search?q=${encodeURIComponent(s)}`}>{s}</Link>
+          {sections.map(s => (
+            <Link key={s} href={hrefFor(s)} className={s === "Shop with us" ? "shop" : undefined}>{s}</Link>
           ))}
         </nav>
       </div>

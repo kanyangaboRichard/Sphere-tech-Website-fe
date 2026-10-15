@@ -9,6 +9,9 @@ export default function ArticleCard({ article }: { article: Article }) {
     <Link href={`/articles/${article.slug}`} className="card">
       <div className="thumb"><Cover article={article} /></div>
       <h3 className="card-title"><Headline article={article} /></h3>
+      {article.excerpt && (
+        <p className="card-excerpt">{article.excerpt}</p>
+      )}
       <div style={{ marginTop: 8 }}><Meta article={article} /></div>
     </Link>
   );
